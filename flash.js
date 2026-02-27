@@ -2,9 +2,10 @@
 // Web Serial API requires Chrome or Edge. Show a banner for all other browsers.
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Skip check when opening locally via file:// (no HTTPS, serial is unavailable regardless)
-  const isLocal = location.protocol === 'file:' || location.hostname === 'localhost';
-  if (!isLocal && !('serial' in navigator)) {
+  const ua = navigator.userAgent;
+  // Chrome: has "Chrome/", no "Edg/", no "OPR/", no "SamsungBrowser"
+  const isChrome = /Chrome\/\d/.test(ua) && !/Edg\/|OPR\/|SamsungBrowser\//.test(ua);
+  if (!isChrome) {
     document.getElementById('browser-warning').hidden = false;
   }
 });
