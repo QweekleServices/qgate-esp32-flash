@@ -162,6 +162,8 @@ footer a { color: #67bfed; text-decoration: none; }
 footer a:hover { text-decoration: underline; }
 
 /* ── Browser warning ── */
+[hidden] { display: none !important; }
+
 .browser-warning {
   display: flex;
   align-items: flex-start;
