@@ -1,14 +1,13 @@
 // ── Browser compatibility warning ──────────────────────────────────────────
 // Web Serial API requires Chrome or Edge. Show a banner for all other browsers.
 
-document.addEventListener('DOMContentLoaded', () => {
-  const ua = navigator.userAgent;
-  // Chrome: has "Chrome/", no "Edg/", no "OPR/", no "SamsungBrowser"
-  const isChrome = /Chrome\/\d/.test(ua) && !/Edg\/|OPR\/|SamsungBrowser\//.test(ua);
-  if (!isChrome) {
-    document.getElementById('browser-warning').hidden = false;
-  }
-});
+// Script is deferred — DOM is already ready, no need for DOMContentLoaded
+const ua = navigator.userAgent;
+// Chrome: has "Chrome/", no "Edg/", no "OPR/", no "SamsungBrowser"
+const isChrome = /Chrome\/\d/.test(ua) && !/Edg\/|OPR\/|SamsungBrowser\//.test(ua);
+if (!isChrome) {
+  document.getElementById('browser-warning').hidden = false;
+}
 
 // ── Driver list filter ──────────────────────────────────────────────────────
 // Remove driver list items that don't apply to the Waveshare ESP32-S3 (CH343 chip).
