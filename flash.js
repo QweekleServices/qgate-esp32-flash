@@ -1,20 +1,8 @@
 // ── Browser compatibility warning ──────────────────────────────────────────
 // Web Serial API requires Chrome or Edge. Show a banner for all other browsers.
 
-function isChromiumBased() {
-  // userAgentData is only available in Chromium browsers
-  if (navigator.userAgentData) {
-    return navigator.userAgentData.brands.some(
-      b => b.brand === 'Google Chrome' || b.brand === 'Microsoft Edge' || b.brand === 'Chromium'
-    );
-  }
-  // Fallback: UA string check
-  const ua = navigator.userAgent;
-  return /Chrome|Edg/.test(ua) && !/OPR|Opera|Brave/.test(ua);
-}
-
 document.addEventListener('DOMContentLoaded', () => {
-  if (!isChromiumBased()) {
+  if (!('serial' in navigator)) {
     document.getElementById('browser-warning').hidden = false;
   }
 });
