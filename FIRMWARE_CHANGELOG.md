@@ -7,8 +7,8 @@ Publish this payload on topic `qgate/ota` with **retain=true** to trigger an OTA
 ```json
 {
   "v": "0.1.3",
-  "url": "https://raw.githubusercontent.com/privronQweekle/qgate-esp32-flash/main/firmware.bin",
-  "sha256": "68534d9f5544fe85aa3d047d9fe6b145b02a973531c56d615fbdd1067be52b7d"
+  "url": "https://qweekleservices.github.io/qgate-esp32-flash/firmware.bin",
+  "sha256": "a8b400798a5530b8603007fdf5bca1614bd146231c478194864d6565461faa91"
 }
 ```
 
@@ -26,7 +26,8 @@ Or target a single device on `qgate/{device_id}/ota`.
 - Rework de la gestion du switch de layout pour ne plus double scanner
 - Support mise à jour depuis github
 - Use longer ID
-- Add max duration of relay open for 1h 
+- Add max duration of relay open for 1h
+- For master code check only start with so afterprovision master pass can be used before as well
 
 # 0.1.2
 - Add drop of partial frame of HID
