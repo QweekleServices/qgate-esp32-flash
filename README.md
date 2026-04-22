@@ -13,7 +13,7 @@ Publish this payload on topic `qgate/ota` with **retain=true** to trigger an OTA
 {
   "v": "0.1.4",
   "url": "https://qweekleservices.github.io/qgate-esp32-flash/firmware.bin",
-  "sha256": "45200d23b19f73268efcf77b505ec90493e065d43ab0e413eda7b60eceacd1e8"
+  "sha256": "ed6e0ed8f80db489be18b61349ce3ab67cdbf0fe4efa056a021be0d8a1015c1e"
 }
 ```
 

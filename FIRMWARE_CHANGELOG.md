@@ -3,10 +3,7 @@
 ## Changelog
 
 # 0.1.4
-- fix: sync NTP via EthernetUDP (NTPClient) au lieu de configTime()
-  - configTime() passait par lwIP alors que arduino-libraries/Ethernet (W5500 SPI) bypass lwIP
-  - time(nullptr) restait à 0 → BearSSL rejetait tous les certs TLS comme "not yet valid"
-  - Bug révélé par le renouvellement du cert HiveMQ Cloud du 2026-04-17
+- Patch NTP provoking certificate renewal failure.
 
 # 0.1.3
 - Nouveau master pass
