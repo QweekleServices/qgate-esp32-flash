@@ -1,6 +1,12 @@
-# QGate Firmware 0.2.0
+# QGate Firmware 0.2.1
 
 ## Changelog
+
+# 0.2.1
+- Fix OTA download failing due to TLS record truncation: enabled `ETHERNET_LARGE_BUFFERS` with `MAX_SOCK_NUM=2` to increase W5500 socket RX buffer from 2 KB to 8 KB
+- Fix manifest JSON parser buffer too small (512 → 1024 bytes) which could silently truncate the manifest body
+- Remove shared `qgate/ota` broadcast topic — OTA updates now target individual devices via `qgate/{device_id}/ota` only
+- Daily automatic reset at 04:00 UTC
 
 # 0.2.0
 - Boot OTA: check GitHub Pages manifest at startup and auto-update if a newer version is available
