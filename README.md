@@ -5,15 +5,16 @@ Flash QGate ESP32 firmware directly from your browser:
 
 ---
 
-## OTA MQTT message — v0.1.4
+## OTA MQTT message — v0.2.0
 
 Publish this payload on topic `qgate/ota` with **retain=true** to trigger an OTA update on all devices:
 
 ```json
 {
-  "v": "0.1.4",
+  "v": "0.2.0",
   "url": "https://qweekleservices.github.io/qgate-esp32-flash/firmware.bin",
-  "sha256": "ed6e0ed8f80db489be18b61349ce3ab67cdbf0fe4efa056a021be0d8a1015c1e"
+  "sha256": "bd82203110b1b848f43b33e24fc8bdf0353b2110faaa0f4a5fc7516b7d6ecfec",
+  "signature": "91cc6280fae038f85812140a52868d1ca5ed1198f3f1130d5fedce209b854dab"
 }
 ```
 
