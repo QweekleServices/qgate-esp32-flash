@@ -1,6 +1,13 @@
-# QGate Firmware 0.2.1
+# QGate Firmware 0.2.2
 
 ## Changelog
+
+# 0.2.2
+- Robust connection state machine: NO_LINK → DHCP_WAIT → NTP_SYNC → MQTT_CONNECT → ONLINE with LED/buzzer feedback at each stage
+- MQTT exponential backoff (5s → 10s → 30s → 60s cap) with fallback to default credentials after 5 consecutive failures
+- Fix SSL write error spam after cable unplug: `mqttDisconnect()` now fully stops and clears the TLS client, and all MQTT API calls use a shadow connected state to avoid touching SSLClient when known-disconnected
+- Extract connection management to `connection.cpp` / `connection.h`; `main.cpp` reduced to ~390 lines
+- Heartbeat enriched with `state` and `ip` fields for remote debugging
 
 # 0.2.1
 - Fix OTA download failing due to TLS record truncation: enabled `ETHERNET_LARGE_BUFFERS` with `MAX_SOCK_NUM=2` to increase W5500 socket RX buffer from 2 KB to 8 KB
