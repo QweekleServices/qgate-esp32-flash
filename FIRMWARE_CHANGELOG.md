@@ -3,7 +3,12 @@
 ## Changelog
 
 # 0.2.3
-- Increase MQTT buffer size.
+- Fix first character of barcode dropped after scanner idle: extended timeout to 2s for short fragments (<4 chars) to handle scanner wake-up latency, with 150ms timeout preserved for normal scans
+- Drop spurious scan fragments shorter than 4 characters instead of publishing them as incomplete scans
+- HID debug: reworked `hid/scan` MQTT dump to JSON format (`{"type":"raw","seq":N,"total":N,"hex":"..."}`) with multi-part reassembly support; fragment rejections published as `{"type":"fragment",...}`
+- HID debug: key-up frames excluded from hex dump (halves dump size); all debug overhead skipped entirely when debug is disabled
+- Updated `tools/mqttfx_clean_hex.py` to handle both `hid/frame` (plain hex) and `hid/scan` (JSON) topic formats, with MQTT.fx noise filtering and multi-part reassembly
+- GitHub Pages: deploy `dev` branch to `/dev/` subfolder alongside main site
 
 # 0.2.2
 - Robust connection state machine: NO_LINK → DHCP_WAIT → NTP_SYNC → MQTT_CONNECT → ONLINE with LED/buzzer feedback at each stage
