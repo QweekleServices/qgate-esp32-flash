@@ -1,6 +1,6 @@
 {
   "name": "QGate Firmware",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "new_install_prompt_erase": true,
   "builds": [
     {
@@ -25,6 +25,6 @@
       ]
     }
   ],
-  "sha256": "4799cc0ec4a3745b0115bafe8059b0a77f801096c08685b90812135febfeeb61",
-  "signature": "26714e4217e7d3ff3d34e4d2be6a9206d7b500d0254ecbc66bd960a88ed03d71"
+  "sha256": "bcf7857bb19dad02492a6c60dd72dccc531b24d50d5d75e8c091bbcdd5b174b7",
+  "signature": "4a9c14fe317ac26462bceb468b8bd0a76a9702776955d1cffd31f1ed69fe9b05"
 }

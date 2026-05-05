@@ -1,6 +1,9 @@
-# QGate Firmware 0.2.2
+# QGate Firmware 0.2.3
 
 ## Changelog
+
+# 0.2.3
+- Increase MQTT buffer size.
 
 # 0.2.2
 - Robust connection state machine: NO_LINK → DHCP_WAIT → NTP_SYNC → MQTT_CONNECT → ONLINE with LED/buzzer feedback at each stage
