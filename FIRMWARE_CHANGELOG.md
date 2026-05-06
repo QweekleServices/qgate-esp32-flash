@@ -1,4 +1,4 @@
-# QGate Firmware 0.2.3
+# QGate Firmware 0.2.3-a
 
 ## Changelog
 
