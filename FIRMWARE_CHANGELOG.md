@@ -1,6 +1,23 @@
-# QGate Firmware 0.2.2
+# QGate Firmware 0.3.0
 
 ## Changelog
+
+# 0.3.0
+- Fix first character of barcode dropped after scanner idle: extended timeout to 2s for short fragments (<4 chars) to handle scanner wake-up latency, with 150ms timeout preserved for normal scans
+- Drop spurious scan fragments shorter than 4 characters instead of publishing them as incomplete scans
+- HID debug: reworked `hid/scan` MQTT dump to JSON format (`{"type":"raw","seq":N,"total":N,"hex":"..."}`) with multi-part reassembly support; fragment rejections published as `{"type":"fragment",...}`
+- HID debug: key-up frames excluded from hex dump (halves dump size); all debug overhead skipped entirely when debug is disabled
+- Updated `tools/mqttfx_clean_hex.py` to handle both `hid/frame` (plain hex) and `hid/scan` (JSON) topic formats, with MQTT.fx noise filtering and multi-part reassembly
+- GitHub Pages: deploy `dev` branch to `/dev/` subfolder alongside main site
+- Fix first character lost on consecutive scans: `finishScan()` no longer clears `rawBuf` mid-loop, preventing frames already buffered for the next scan from being discarded
+- Fix provisioning ignoring re-provisioning on already-provisioned devices: removed guard that silently dropped `CFGTESTA` QR codes when credentials were already set
+- Fix `mastersuffix` not stored when re-provisioning: refactored provisioning payload application into shared `applyProvisioningPayload()` used by both QR and MQTT flows
+- New MQTT endpoint `qgate/{id}/provision`: accepts `{"provision":"<base64>"}` (PSK-encrypted `user:password:mastersuffix`) for direct provisioning without QR code handshake
+- Heartbeat includes `master_suffix` field when debug is active and a provisioning suffix is set
+- New tool `tools/decrypt_provisioning.py`: decrypts and parses a provisioning base64 payload for verification
+- Heartbeat now includes `last_scan_ms` (total time from first char to relay command received) once after each accepted scan, then cleared
+- Heartbeat MQTT output handler logs `mqtt_output_rtt_ms` and `total_ms` timings on each relay command received
+- Heartbeat JSON built with ArduinoJson instead of snprintf to avoid buffer sizing issues
 
 # 0.2.2
 - Robust connection state machine: NO_LINK → DHCP_WAIT → NTP_SYNC → MQTT_CONNECT → ONLINE with LED/buzzer feedback at each stage
