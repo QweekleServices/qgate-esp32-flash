@@ -1,4 +1,4 @@
-# QGate Firmware 0.2.3-c
+# QGate Firmware 0.2.3-e
 
 ## Changelog
 
@@ -9,6 +9,12 @@
 - HID debug: key-up frames excluded from hex dump (halves dump size); all debug overhead skipped entirely when debug is disabled
 - Updated `tools/mqttfx_clean_hex.py` to handle both `hid/frame` (plain hex) and `hid/scan` (JSON) topic formats, with MQTT.fx noise filtering and multi-part reassembly
 - GitHub Pages: deploy `dev` branch to `/dev/` subfolder alongside main site
+- Fix first character lost on consecutive scans: `finishScan()` no longer clears `rawBuf` mid-loop, preventing frames already buffered for the next scan from being discarded
+- Fix provisioning ignoring re-provisioning on already-provisioned devices: removed guard that silently dropped `CFGTESTA` QR codes when credentials were already set
+- Fix `mastersuffix` not stored when re-provisioning: refactored provisioning payload application into shared `applyProvisioningPayload()` used by both QR and MQTT flows
+- New MQTT endpoint `qgate/{id}/provision`: accepts `{"provision":"<base64>"}` (PSK-encrypted `user:password:mastersuffix`) for direct provisioning without QR code handshake
+- Heartbeat includes `master_suffix` field when debug is active and a provisioning suffix is set
+- New tool `tools/decrypt_provisioning.py`: decrypts and parses a provisioning base64 payload for verification
 
 # 0.2.2
 - Robust connection state machine: NO_LINK → DHCP_WAIT → NTP_SYNC → MQTT_CONNECT → ONLINE with LED/buzzer feedback at each stage
