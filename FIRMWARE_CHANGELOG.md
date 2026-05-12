@@ -1,8 +1,8 @@
-# QGate Firmware 0.2.3-f
+# QGate Firmware 0.3.0
 
 ## Changelog
 
-# 0.2.3
+# 0.3.0
 - Fix first character of barcode dropped after scanner idle: extended timeout to 2s for short fragments (<4 chars) to handle scanner wake-up latency, with 150ms timeout preserved for normal scans
 - Drop spurious scan fragments shorter than 4 characters instead of publishing them as incomplete scans
 - HID debug: reworked `hid/scan` MQTT dump to JSON format (`{"type":"raw","seq":N,"total":N,"hex":"..."}`) with multi-part reassembly support; fragment rejections published as `{"type":"fragment",...}`
@@ -15,6 +15,9 @@
 - New MQTT endpoint `qgate/{id}/provision`: accepts `{"provision":"<base64>"}` (PSK-encrypted `user:password:mastersuffix`) for direct provisioning without QR code handshake
 - Heartbeat includes `master_suffix` field when debug is active and a provisioning suffix is set
 - New tool `tools/decrypt_provisioning.py`: decrypts and parses a provisioning base64 payload for verification
+- Heartbeat now includes `last_scan_ms` (total time from first char to relay command received) once after each accepted scan, then cleared
+- Heartbeat MQTT output handler logs `mqtt_output_rtt_ms` and `total_ms` timings on each relay command received
+- Heartbeat JSON built with ArduinoJson instead of snprintf to avoid buffer sizing issues
 
 # 0.2.2
 - Robust connection state machine: NO_LINK → DHCP_WAIT → NTP_SYNC → MQTT_CONNECT → ONLINE with LED/buzzer feedback at each stage
