@@ -1,6 +1,18 @@
-# QGate Firmware 0.3.0
+# QGate Firmware 0.4.0
 
 ## Changelog
+
+# 0.4.0
+- CDC (USB virtual COM) scanner support: scanners in USB COM mode are now handled alongside HID keyboard mode, with automatic detection per device — CDC payloads arrive as raw ASCII, bypassing keyboard decoding and layout (FR/EN) handling entirely
+- HID frames are now dispatched on the CH559 protocol message type byte: fixes a latent bug where any frame with an 8-byte payload (e.g. an 8-char device string during enumeration) was misparsed as a keyboard report and could inject garbage characters
+- Fix scan-end inactivity timer able to fire on the very first character after boot (`lastDecoded` now initialized at `usbHidInit`)
+- CH559 module firmware (fork [privronQweekle/CH559sdccUSBHost](https://github.com/privronQweekle/CH559sdccUSBHost)):
+  - Fix first HID report lost after USB enumeration (data toggle mismatch) — root cause of the first character missing from the first scan after boot or scanner replug
+  - CDC-ACM support: bulk IN polling forwarded over UART as `MSG_TYPE_CDC_DATA` (0x09) frames; line opened with SET_LINE_CODING + SET_CONTROL_LINE_STATE (DTR/RTS)
+  - UART output at 115200 baud (matches deployed modules)
+  - Requires reflashing the module (see `tools/hid_module_flash/`); old module firmware remains fully compatible with this ESP32 firmware in HID mode
+- New tool `tools/hid_sniffer/`: minimal UART sniffer firmware (per-byte timestamps, RAM-buffered) + `analyze.py` capture/analysis script that decodes HID and CDC frames, detects USB enumerations and diffs scans against an expected barcode
+- `tools/hid_module_flash/` cleaned up: single up-to-date `CH559USB.bin` (data toggle fix + 115200 + CDC), rewritten flash instructions, stale test binaries and leftover PlatformIO skeleton removed
 
 # 0.3.0
 - Fix first character of barcode dropped after scanner idle: extended timeout to 2s for short fragments (<4 chars) to handle scanner wake-up latency, with 150ms timeout preserved for normal scans
