@@ -1,6 +1,9 @@
-# QGate Firmware 0.4.0
+# QGate Firmware 0.4.1
 
 ## Changelog
+
+# 0.4.1
+- Fix critique TLS/MQTT : SSLClient validait le certificat du broker contre la date de COMPILATION du firmware (figée), en ignorant l'horloge NTP. À chaque rotation du certificat Let's Encrypt de HiveMQ (tous les 90 j), tout le parc tombait simultanément en « certificate is expired or not yet valid » et ne pouvait plus se connecter. On applique désormais l'heure NTP réelle via `setVerificationTime()` juste après la synchro temps, donc la validation suit l'horloge murale et non la date de build.
 
 # 0.4.0
 - CDC (USB virtual COM) scanner support: scanners in USB COM mode are now handled alongside HID keyboard mode, with automatic detection per device — CDC payloads arrive as raw ASCII, bypassing keyboard decoding and layout (FR/EN) handling entirely
